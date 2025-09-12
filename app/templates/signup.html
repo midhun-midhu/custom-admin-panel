@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .signup-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .signup-container button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .signup-container button:hover {
+      background-color: #555;
+    }
+    .signup-container .login-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .signup-container .error-message {
+      color: red;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+
+  <div class="signup-container">
+    <h2>Sign Up</h2>
+    <form action="{% url 'signup' %}" method="POST" autocomplete="off">
+  {% csrf_token %}
+  <div>
+    <input type="text" name="name" placeholder="Username" required autocomplete="off" />
+  </div>
+  <div>
+    <input type="email" name="email" placeholder="Email" required autocomplete="off" />
+  </div>
+  <div>
+    <input type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+  </div>
+  <div>
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required autocomplete="new-password" />
+  </div>
+  <button type="submit">Create Account</button>
+</form>
+
+
+    <a class="login-link" href="{% url 'login' %}">Already have an account? Log in</a>
+
+   
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+   
+  </div>
+{% endblock content %}
+
+

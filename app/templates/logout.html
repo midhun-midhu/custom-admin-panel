@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .logout-container {
+      background: white;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .logout-container h2 {
+      margin-bottom: 1rem;
+    }
+    .logout-container p {
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+    .logout-container a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .logout-container a:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logout-container">
+    <h2>You have been logged out.</h2>
+    <p>Thank you for visiting.</p>
+    <a href="{% url 'login'%}">Login Again</a>
+  </div>
+
+  {% endblock content %}

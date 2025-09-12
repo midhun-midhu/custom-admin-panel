@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <style>
+    .otp-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+
+    .otp-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    .otp-box h2 {
+      margin-bottom: 10px;
+    }
+
+    .otp-inputs {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+
+    .otp-inputs input {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .otp-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .otp-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+
+  <div class="otp-wrapper">
+    <div class="otp-box">
+      <h2>OTP Verification</h2>
+      <p>Enter the 4-digit code sent to your email</p>
+
+                    {% if messages %}
+                    {% for msg in messages %}
+                    <div class="alert alert-primary" role="alert">
+                        {{ msg}}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+      
+      <form method="post">
+        {% csrf_token %}
+        <div class="otp-inputs">
+          <input type="text" maxlength="1" name="otp1" required>
+          <input type="text" maxlength="1" name="otp2" required>
+          <input type="text" maxlength="1" name="otp3" required>
+          <input type="text" maxlength="1" name="otp4" required>
+        </div>
+        <button type="submit" class="otp-btn">Verify OTP</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Admin Members</h2>
+    <table class="table table-striped text-center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in user %}
+            <tr>
+                <td>{{ x.id }}</td>
+                <td>{{ x.username }}</td>
+                <td>{{ x.email }}</td>
+                <td>
+                    <a href="{% url 'update' x.id %}" class="btn btn-success btn-sm">Update</a>
+                    <a href="{% url 'delete' x.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'add' %}" class="btn btn-primary">Add New Member</a>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
