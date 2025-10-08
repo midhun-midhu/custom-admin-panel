@@ -55,6 +55,11 @@
 
   <div class="signup-container">
     <h2>Sign Up</h2>
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}
     <form action="{% url 'signup' %}" method="POST" autocomplete="off">
   {% csrf_token %}
   <div>
@@ -73,12 +78,7 @@
 </form>
 
 
-    <a class="login-link" href="{% url 'login' %}">Already have an account? Log in</a>
-
-   
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
+    <a class="login-link" href="{% url 'login' %}">Already have an account? Log in</a>     
    
   </div>
 {% endblock content %}

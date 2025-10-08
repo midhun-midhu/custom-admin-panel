@@ -176,56 +176,73 @@ def reset_password(request):
     return render(request,"reset_password.html")
 
 
-
+@login_required(login_url="login")
 def member(request):
      user=User.objects.all()   
      return render(request,"adminn.html",{'user':user})
 
-
+@login_required(login_url="login")
 def add(request):
    
     return render(request,"add.html",)
 
-
+@login_required(login_url="login")
 def addrec(request):
     if request.method == "POST":
-        name = request.POST.get("name")
+        username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        # save directly to model
-        User.objects.create(
-            username=name,
+        # check if username or email already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return redirect("add")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists.")
+            return redirect("add")
+
+        # create new user
+        user = User.objects.create(
+            username=username,
             email=email,
-            password=password
+            password=make_password(password)  # hash the password
         )
-        return redirect("member")
-    
+
+        messages.success(request, f"New member '{username}' added successfully!")
+        return redirect("member")  # redirect to admin's member list
+
     return render(request, "add.html")
 
-
+@login_required(login_url="login")
 def delete(request,id):
     user = get_object_or_404(User, id=id)
     user.delete()
     return redirect("member")
 
 
-
+@login_required(login_url="login")
 def update(request, id):
     user = get_object_or_404(User, id=id)
 
     if request.method == "POST":
-        # match the template field names exactly
-        user.username = request.POST.get("username")
-        user.email = request.POST.get("email")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        if password:  # hash only if a new password is entered
+        if User.objects.exclude(id=user.id).filter(username=username).exists():
+            messages.error(request, "Username already exists. Please choose another.")
+            return redirect('update', id=id)
+
+        user.username = username
+        user.email = email
+
+        if password:
             user.password = make_password(password)
 
         user.save()
+        messages.success(request, "User updated successfully!")
         return redirect("member")
 
     return render(request, "update.html", {"user": user})
-
 

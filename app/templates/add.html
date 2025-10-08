@@ -4,31 +4,26 @@
 <div class="container mt-5" style="max-width: 500px;">
     <h2 class="text-center mb-4">Add New Member</h2>
 
-    <form action="{% url 'addrec' %}" method="POST" class="border p-4 rounded shadow-sm bg-light">
+    <form action="{% url 'addrec' %}" method="POST" class="border p-4 rounded shadow-sm bg-light" autocomplete="off">
         {% csrf_token %}
 
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" name="username" id="name" class="form-control" value="{{ user.username }}" required>
+            <input type="text" name="username" id="username" class="form-control" required autocomplete="new-username"/>
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" id="email" class="form-control" value="{{ user.email }}" required>
+            <input type="email" name="email" id="email" class="form-control" required autocomplete="off"/>
         </div>
 
         <div class="mb-3">
-            <label for="password" class="form-label">New Password</label>
-            <input type="password" name="password" id="password" class="form-control" placeholder="">
+            <label for="password" class="form-label">Password</label>
+            <input  type="password" name="password" id="password" class="form-control" required autocomplete="new-password" />
         </div>
-
 
         <button type="submit" class="btn btn-success w-100">Add</button>
     </form>
 </div>
 
 {% endblock content %}
-
-
-
-

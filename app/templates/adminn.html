@@ -3,6 +3,11 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">Admin Members</h2>
+    {% for message in messages  %}
+    <div class="alert alert-success" role="alert">
+    <p> {{message}}</p>
+    </div>
+    {% endfor %}
     <table class="table table-striped text-center">
         <thead>
             <tr>
@@ -20,7 +25,7 @@
                 <td>{{ x.email }}</td>
                 <td>
                     <a href="{% url 'update' x.id %}" class="btn btn-success btn-sm">Update</a>
-                    <a href="{% url 'delete' x.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'delete' x.id %}" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             {% endfor %}
@@ -29,6 +34,8 @@
 
     <div class="text-center mt-4">
         <a href="{% url 'add' %}" class="btn btn-primary">Add New Member</a>
+        <a href="{% url 'home'%}" class="btn btn-warning">HOME</a>
+        <a href="{% url 'logout'%}" onclick="return confirm('Are you sure you want to logout?');" class="btn btn-danger">Logout</a>
     </div>
 </div>
 
